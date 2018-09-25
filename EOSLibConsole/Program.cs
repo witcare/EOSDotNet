@@ -30,7 +30,7 @@ namespace EOSLibConsole
             //EOSInfo.GetInfo();
             //EOSInfo.GetProduerSchedule();
             //EOSInfo.GetAccountInfo();
-            //EOSInfo.GetAccountBalance();
+            EOSInfo.GetAccountBalance();
             //EOSInfo.GetNewKeyPair();
             //EOSInfo.GetAbiJsonToBin();
             EOSInfo.GetBlock();
@@ -160,7 +160,7 @@ namespace EOSLibConsole
         }
         public static void GetAccountBalance()
         {
-            var currencyBalance = chainAPI.GetCurrencyBalance("yatendra1", "eosio.token", "EOS");
+            var currencyBalance = chainAPI.GetCurrencyBalance("jitmesdotcom", "eosio.token", "EOS");
             logger.Info("The account had {0} balance records. The 1st (and probably the only balance) is {1}", currencyBalance.balances.Count, currencyBalance.balances.First());
         }
 
