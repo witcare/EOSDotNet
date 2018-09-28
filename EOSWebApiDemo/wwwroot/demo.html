@@ -69,23 +69,29 @@
    
   <div class="form-group row">
     <div class="col-sm-2">
-      <button type="button" class="btn btn-primary btn-large btn-block" onclick="GetInfo();" id="btnHeartbeatTimeSave">GetInfo</button>
-     
+      <button type="button" class="btn btn-primary btn-large btn-block" onclick="GetInfo();" id="btnGetInfo">GetInfo</button>
     </div>
-        <div class="col-sm-2">
-      <button type="button" class="btn btn-primary btn-large btn-block" onclick="saveHeartbeat();" id="btnHeartbeatSave">发送心跳</button>
-     
-    </div>
-        <div class="col-sm-2">
-      <button type="button" class="btn btn-primary btn-large btn-block" onclick="cleanHeartbeat();" id="btnHeartbeatClean">清空心跳</button>
-     
-    </div>
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-primary btn-large btn-block" onclick="GetAccountBalance();" id="btnGetAccountBalance">GetAccountBalance</button>
+    </div>    
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-primary btn-large btn-block" onclick="GetNewKeyPair();" id="btnGetNewKeyPair">GetNewKeyPair</button>
+    </div>    	
+	    <div class="col-sm-2">
+      <button type="button" class="btn btn-primary btn-large btn-block" onclick="Transfer();" id="btnTransfer">Transfer</button>
+    </div>    
+	
+	<div class="col-sm-2">
+      <button type="button" class="btn btn-primary btn-large btn-block" onclick="GetActions();" id="btnTransfer">GetActions</button>
+    </div>    
+	
+	
     <div class="col-sm-2"></div>
   </div>
 </form>
  <br/>
 
- <table class="table table-responsive table-bordered">
+ <table class="table table-responsive table-bordered" style="display: none;">
   <thead>
     <tr>
       <th>设备编号</th>
@@ -162,9 +168,108 @@
                     }  
                 });  
     	}
-
 		
-      
+		
+	function GetAccountBalance() {
+    		 $.ajax({  
+                    url : url + "/eosio/GetAccountBalance",
+					data : {"account" : "jitmesdotcom"},
+					//contentType: "application/json;charset=utf-8",
+                    //dataType: "json",
+                    type: "get",
+                    success : function(result) {//返回数据根据结果进行相应的处理  
+                        //alert(result);
+						alert(JSON.stringify(result));
+                    }  
+                }); 
+			
+    	}
+		
+		function GetActions() {
+    		 $.ajax({  
+                    url : url + "/eosio/GetActions",
+					data : {"account" : "jitmesdotcom"},
+					//contentType: "application/json;charset=utf-8",
+                    //dataType: "json",
+                    type: "get",
+                    success : function(result) {//返回数据根据结果进行相应的处理  
+                        //alert(result);
+						alert(JSON.stringify(result));
+                    }  
+                }); 
+			
+    	}
+		
+		
+		function GetNewKeyPair() {
+    		 $.ajax({  
+                    type : "GET",  //提交方式  
+                    url : url + "/eosio/GetNewKeyPair",
+                    success : function(result) {//返回数据根据结果进行相应的处理  
+                        //alert(result);
+						alert(JSON.stringify(result));
+                    }  
+                });  
+    	}
+		//string fromAccountName, string toAccountName,string value, string privateKey, string memo
+      function Transfer() {
+	          var dataObject = {"FromAccount" : "jitmesdotcom",
+								"ToAccount" : "witcaremes11",
+								"Quantity" : "0.0001 EOS",
+								"PrivateKey" : "5KbMMPzBB6gL7AGYJ5NWtXGeo68dvm7RgVbJoM3jTHdP8EpiZ65",
+								"Memo" : "http://eos.jitmes.com 最简单EOS开放平台"};
+	          //alert(JSON.stringify(dataObject));
+			  alert("Transfer");
+			  $.ajax({  
+                    type : "POST",  //提交方式  
+                    url : url + "/eosio/Transfer",
+					contentType: 'application/json',
+					accepts: 'application/json',
+					data : JSON.stringify(dataObject),
+                    success : function(result) {//返回数据根据结果进行相应的处理  
+                        //alert(result);
+						alert(JSON.stringify(result));
+                    }, 
+					error:function(r,s,m){
+						alert(r+"---"+s+"-----------"+m)
+                    }                 
+                });  
+				
+				/**
+				 alert("Transfer2");
+			  $.ajax({  
+                    type : "post",  //提交方式  
+                    url : url + "/eosio/Transfer2",
+					contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+					data : dataObject,
+                    success : function(result) {//返回数据根据结果进行相应的处理  
+                        //alert(result);
+						alert(JSON.stringify(result));
+                    }, 
+					error:function(r,s,m){
+						alert(r+"---"+s+"-----------"+m)
+                    }                 
+                });  
+				
+				
+				alert("Transfer");
+				
+    		 $.ajax({  
+                    type : "get",  //提交方式  
+                    url : url + "/eosio/Transfer",
+					data : dataObject,
+                    success : function(result) {//返回数据根据结果进行相应的处理  
+                        //alert(result);
+						alert(JSON.stringify(result));
+                    }, 
+					error:function(r,s,m){
+						alert(r+"---"+s+"-----------"+m)
+                    }                 
+                });  
+				**/
+    	}
+	  
  	    function transLedTab(m,d) {
  	    	 $("#ledId").val(d);
              $("#masterId").val(m);

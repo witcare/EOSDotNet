@@ -37,9 +37,9 @@ namespace EOSLibConsole
             //EOSInfo.GetAbi();
             //EOSInfo.GetCode();
             //EOSInfo.GetRawCodeAndAbi();
-            //EOSInfo.GetActions();
+            EOSInfo.GetActions();
             //EOSInfo.GetTransaction();
-            //EOSInfo.TestTransaction();
+            EOSInfo.TestTransaction();
             //EOSInfo.GetTableRows();
 
             Console.WriteLine("Done");
